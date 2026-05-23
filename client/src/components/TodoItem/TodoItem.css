@@ -1,0 +1,556 @@
+.todo-item-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent-color);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.todo-item-card-wrapper:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-color);
+  box-shadow: var(--shadow-md);
+}
+
+/* Pinned Glow Effect */
+.todo-item-card-wrapper.pinned {
+  border-left-color: #ec4899; /* Pink Star */
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.08), var(--shadow-sm);
+  background: rgba(236, 72, 153, 0.02);
+}
+
+.todo-item-card-wrapper.pinned:hover {
+  box-shadow: 0 6px 18px rgba(236, 72, 153, 0.12), var(--shadow-md);
+}
+
+/* Completed Card styling */
+.todo-item-card-wrapper.completed {
+  border-left-color: var(--success-color);
+}
+
+.todo-item-card-wrapper.completed .todo-item-title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* Main Top Row */
+.todo-item-main-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+}
+
+/* Custom Checkbox Button */
+.checkbox-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  border-radius: 50%;
+}
+
+.checkbox-btn:hover {
+  color: var(--accent-color);
+  transform: scale(1.1);
+}
+
+.checkbox-btn.checked {
+  color: var(--success-color);
+}
+
+.checkbox-btn .check-icon {
+  animation: checkPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes checkPop {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Content (Title & Badges) */
+.todo-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title-and-labels {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.todo-item-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.pinned-badge {
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(236, 72, 153, 0.1);
+  color: #ec4899;
+  padding: 2px 6px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Meta Tags Badge Row */
+.todo-item-meta-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+/* Priority Badges styling */
+.meta-badge.priority.low {
+  background: var(--low-bg);
+  color: var(--low-text);
+  border-color: var(--low-border);
+}
+
+.meta-badge.priority.medium {
+  background: var(--medium-bg);
+  color: var(--medium-text);
+  border-color: var(--medium-border);
+}
+
+.meta-badge.priority.high {
+  background: var(--high-bg);
+  color: var(--high-text);
+  border-color: var(--high-border);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* Due Date Badge colors */
+.date-badge.due-today {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.date-badge.due-tomorrow {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.date-badge.due-overdue {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+  font-weight: 700;
+}
+
+.date-badge.due-completed {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+/* Actions panel styling */
+.todo-item-actions-panel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-icon-btn {
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.action-icon-btn:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.pin-btn.active {
+  color: #ec4899;
+  background: rgba(236, 72, 153, 0.08);
+  border: 1px solid rgba(236, 72, 153, 0.2);
+}
+
+/* Edit Inline Input */
+.edit-title-input {
+  width: 100%;
+  padding: 6px 12px;
+  font-size: 15px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  outline: none;
+  font-weight: 600;
+}
+
+/* Expanded panel styling */
+.todo-item-expanded-panel {
+  border-top: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.01);
+  padding: 16px 20px 20px 20px;
+}
+
+.expanded-details-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.details-description {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  background: var(--bg-secondary);
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  white-space: pre-wrap;
+}
+
+.no-desc-text {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Subtasks Progress */
+.subtask-progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.subtask-progress-bar {
+  height: 6px;
+  background: var(--border-color);
+  border-radius: 99px;
+  position: relative;
+  overflow: hidden;
+}
+
+.subtask-progress-bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: var(--accent-gradient);
+  width: 100%;
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+/* Set dynamic width in JS, so CSS handles scaling */
+.subtask-progress-bar {
+  background: var(--border-color);
+}
+.subtask-progress-container .subtask-progress-bar {
+  background: var(--border-color);
+}
+.subtask-progress-bar > div {
+  height: 100%;
+  background: var(--accent-gradient);
+  transition: width 0.3s ease;
+}
+
+.subtask-progress-text {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Subtasks List item styling */
+.subtasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-secondary);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+}
+
+.subtask-item:hover {
+  border-color: var(--text-secondary);
+}
+
+.subtask-checkbox {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: color var(--transition-fast);
+}
+
+.subtask-checkbox.checked {
+  color: var(--success-color);
+}
+
+.subtask-title {
+  font-size: 13px;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.subtask-item.completed .subtask-title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.btn-delete-subtask {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.subtask-item:hover .btn-delete-subtask {
+  opacity: 1;
+}
+
+.btn-delete-subtask:hover {
+  color: var(--danger-color);
+}
+
+/* Add Subtask Form inline */
+.add-subtask-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.subtask-input-field {
+  flex: 1;
+  height: 34px;
+  padding: 0 12px;
+  font-size: 13px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.subtask-input-field:focus {
+  border-color: var(--accent-color);
+}
+
+.btn-add-subtask {
+  background: var(--accent-light);
+  color: var(--accent-color);
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-add-subtask:hover {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+/* Expanded footer actions */
+.expanded-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+.expanded-footer-actions .btn-secondary {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+.text-danger {
+  color: var(--danger-color) !important;
+}
+.text-danger:hover {
+  background: rgba(239, 68, 68, 0.05) !important;
+  border-color: var(--danger-color) !important;
+}
+
+/* Editing form layouts */
+.todo-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.edit-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.edit-form-group label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.edit-desc-textarea {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  padding: 8px 12px;
+  font-size: 13px;
+  min-height: 70px;
+  resize: vertical;
+  outline: none;
+  font-family: inherit;
+}
+
+.edit-desc-textarea:focus {
+  border-color: var(--accent-color);
+}
+
+.edit-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.edit-form-group select, .edit-form-group input {
+  height: 38px;
+  padding: 0 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  outline: none;
+}
+
+.edit-form-group select:focus, .edit-form-group input:focus {
+  border-color: var(--accent-color);
+}
+
+.edit-actions-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.edit-actions-row button {
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .edit-form-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .todo-item-main-row {
+    padding: 14px 16px;
+  }
+
+  .todo-item-meta-tags {
+    gap: 4px;
+  }
+  
+  .meta-badge {
+    padding: 2px 6px;
+  }
+
+  .expanded-footer-actions {
+    justify-content: space-between;
+  }
+
+  .expanded-footer-actions button {
+    flex: 1;
+    justify-content: center;
+  }
+}
