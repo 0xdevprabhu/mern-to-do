@@ -5,7 +5,7 @@ import axios from 'axios';
 const TodoContext = createContext();
 
 // Backend URL where Node.js server runs
-const API_URL = 'http://localhost:5000/api/todos';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/todos';
 
 export const TodoProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
